@@ -35,10 +35,12 @@ export default function HomeScreen() {
        } 
     `
       )
-      .then((date) => {
+      .then((data) => {
         setFeaturedCategory(data);
       });
   }, []);
+
+  console.log(featuredCategory);
 
   return (
     <SafeAreaView className="bg-white pt-5">
@@ -70,18 +72,14 @@ export default function HomeScreen() {
       </View>
       <ScrollView className="bg-gray-100">
         <Categories />
-        <FeaturedRow
-          title="Featured"
-          description="Paid placements from our partners"
-        />
-        <FeaturedRow
-          title="Featured"
-          description="Paid placements from our partners"
-        />
-        <FeaturedRow
-          title="Featured"
-          description="Paid placements from our partners"
-        />
+        {featuredCategory?.map((category) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
